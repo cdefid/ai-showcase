@@ -1,0 +1,308 @@
+{
+  "community": {
+    "name": "Cyber Defense Indonesia",
+    "showName": "AI Showcase",
+    "description": "Community members show the tools they vibe-coded on nights and weekends: personal projects, side quests, and things built because something annoyed them enough."
+  },
+  "episodes": [
+    {
+      "number": 1,
+      "title": "Vibe coding show & tell",
+      "date": "2026-09",
+      "language": "Bahasa Indonesia",
+      "youtubeId": "OM9CeIHhq3I",
+      "durationSeconds": 9130,
+      "hosts": [
+        "Wahyu N",
+        "Rizal"
+      ],
+      "summary": "Four security-minded builders demoed what they made with AI coding agents: an anti-scam checker for our parents, a private OSINT graph, a phishing sandbox that sees what public scanners miss, and a credibility meter for the posts clogging your feed. Along the way the panel traded notes on model routing, spec-driven development, token budgets and guardrails.",
+      "chapters": [
+        {
+          "start": 0,
+          "label": "Opening and introductions"
+        },
+        {
+          "start": 550,
+          "label": "Ponten",
+          "project": "ponten"
+        },
+        {
+          "start": 1829,
+          "label": "OSINT Graph Mapper",
+          "project": "osint-graph-mapper"
+        },
+        {
+          "start": 4155,
+          "label": "Phishing Analyzer",
+          "project": "phishing-analyzer"
+        },
+        {
+          "start": 5307,
+          "label": "Fishymeter",
+          "project": "fishymeter"
+        },
+        {
+          "start": 8510,
+          "label": "Closing: is vibe coding creating value?"
+        }
+      ],
+      "takeaways": [
+        "Plan with a big model, execute with a small one. A clear plan.md lets a cheaper model implement it without burning context on file reads.",
+        "Keep planning and execution in separate sessions so the execution context isn't already full of planning chatter.",
+        "If you keep hitting the same wall, start a new session with a sharper prompt instead of arguing with the agent.",
+        "Write the requirements yourself and review them line by line. Trust the agent more as you move from design to tasks.",
+        "Prompt caching varies a lot between providers and it shows up directly in cost.",
+        "When a model's guardrails block legitimate security work, switch models rather than jailbreak an account you care about.",
+        "A weekend project doesn't need enterprise architecture. Choose serverless and cheap models and accept an A graded as a B.",
+        "Learn the fundamentals. You can't review what the AI wrote if you don't understand the infrastructure it chose."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "ponten",
+      "name": "Ponten",
+      "tagline": "Check a suspicious link, phone number or bank account before you click or transfer.",
+      "maker": "Rizal",
+      "episode": 1,
+      "timestamp": 550,
+      "links": {
+        "site": "https://ponten.id"
+      },
+      "category": "Anti-scam",
+      "tags": [
+        "Scam detection",
+        "Security awareness",
+        "Screenshot analysis",
+        "PWA",
+        "Privacy-first",
+        "For non-technical users"
+      ],
+      "builtWith": [
+        "Claude Code",
+        "Claude Opus",
+        "Subagents",
+        "Skills"
+      ],
+      "availability": [
+        "Live",
+        "Free to use"
+      ],
+      "summary": "A mobile-first scam checker in plain Indonesian, made for people outside security, especially parents and older relatives who get a sketchy WhatsApp, SMS or Telegram message and don't know who to ask.",
+      "problem": "Scam links like klikbca.id vs klikbca.com are easy to miss if you aren't in security. Existing checkers are built for analysts, not for the family group chat.",
+      "features": [
+        "Screenshot check: upload a photo of a suspicious chat and AI reads the message and points out what's off",
+        "Link check against several OSINT sources, with a clear verdict and the reason behind it, such as a very new domain",
+        "Phone and bank account check, backed by community reports (no government API yet, so treat unknowns with care)",
+        "Scam-awareness quiz with seven real-world scenarios",
+        "Community scam reports, each one reviewed by hand",
+        "Works without an account (rate-limited); sign in to keep your check history",
+        "Coming later: hoax-news lookup against fact-checkers, and a check for AI-generated photos and video"
+      ],
+      "howItWasBuilt": "Built over roughly a month of casual evenings with Claude Code on Opus. Rizal leaned on subagents playing architect, code reviewer, security reviewer and tester, and used skills to break the build into steps, while keeping an eye on context: loading too many skills in one session filled it quickly.",
+      "stack": [
+        "PWA",
+        "External AI vision inference",
+        "OSINT lookups"
+      ],
+      "privacy": "Only the screenshots are kept, cached for about 24 hours and then deleted. Nothing else sensitive is stored, which keeps it in the spirit of Indonesia's PDP law.",
+      "lessons": [
+        "Claude is token-hungry once you add agents and skills: one feature can use up a session, and then you wait around 5 hours for the limit to reset.",
+        "Plan early and revisit the plan in MD files so the next session, or a different model, can pick up where you stopped."
+      ],
+      "roadmap": [
+        "Hoax-news check",
+        "AI-generated image and video detection",
+        "Compare the workflow against OpenCode and cheaper models"
+      ]
+    },
+    {
+      "id": "osint-graph-mapper",
+      "name": "OSINT Graph Mapper",
+      "tagline": "Map entities, relationships and evidence in a local, encrypted vault. Nothing is uploaded.",
+      "maker": "Aan W (petruknisme)",
+      "episode": 1,
+      "timestamp": 1917,
+      "links": {
+        "site": "https://osintmapper.petruknisme.com/"
+      },
+      "category": "OSINT",
+      "tags": [
+        "Investigation",
+        "Graph visualization",
+        "Client-side encryption",
+        "Local-first",
+        "Privacy-first",
+        "Threat intel"
+      ],
+      "builtWith": [
+        "Codex",
+        "DeepSeek",
+        "GLM",
+        "MiMo",
+        "oh-my-opencode",
+        "Model routing"
+      ],
+      "availability": [
+        "Live",
+        "Free to use"
+      ],
+      "summary": "A browser-only investigation workspace for OSINT. You build a graph of people, domains, accounts and wallets, attach evidence to any node or link, and everything stays encrypted on your own device.",
+      "problem": "Graph tools like Maltego are powerful, but they're licensed per seat and your queries travel through someone else's servers. For sensitive or confidential investigations, the goal was for the analyst to be the only one holding the data, with a UI that doesn't fight you.",
+      "features": [
+        "Interactive graph with typed relationships and 92 entity types, from domain, ASN and wallet to person, email and social accounts",
+        "Service registry (GitHub, Telegram, X and more) so account nodes resolve to the right platform",
+        "Evidence board: attach URLs, notes, documents and citations to an entity, a relationship or the whole case",
+        "Per-node metadata: source, confidence score (0–100), verification status and analyst notes",
+        "TLP classification, per-case passwords and auto-lock after inactivity",
+        "Encrypted backups to a file, WebDAV or S3, all without a backend",
+        "Exports and handoff: graph PNG, Markdown report, and a passphrase-protected bundle with the reports, graph, manifest and encrypted backup",
+        "Command palette and keyboard shortcuts for quickly adding nodes and sub-nodes"
+      ],
+      "howItWasBuilt": "It started as a regular app with a Postgres backend. Aan then asked how anyone could trust that their data was safe on a database the author controls, and rebuilt it as client-side only, which meant the frontend had to cover every feature. Aan works across a mix of agents and models, sending cheap models like DeepSeek Flash, MiMo or GLM to explore the codebase and saving bigger ones for implementation.",
+      "stack": [
+        "React",
+        "Vite",
+        "Tailwind",
+        "IndexedDB",
+        "Web Crypto (PBKDF2 + AES-GCM)",
+        "Cloudflare (static hosting)"
+      ],
+      "privacy": "Cases are encrypted at rest in IndexedDB with a key derived by PBKDF2 (about 250k iterations) and AES-GCM. The hosted site only serves the UI. There's no password recovery by design, and clearing your browser data deletes your cases, so keep backups.",
+      "lessons": [
+        "No model is simply bad. What matters is giving each one the right role: cheap models for exploring, strong models for implementing.",
+        "Never plan and execute in the same session. Write a plan.md, then run it in a fresh one.",
+        "Choose providers with good prompt caching. DeepSeek's cache hits make long sessions far cheaper.",
+        "Codex and ChatGPT are the most sensitive to guardrails for security tooling. Switch models rather than risk a ban on an important account.",
+        "Small models need concrete constraints (framework, database, structure). The more detail you give, the faster you get there."
+      ],
+      "roadmap": [
+        "Maltego import",
+        "Embedding evidence files (base64) instead of linking by URL",
+        "Better report export"
+      ]
+    },
+    {
+      "id": "phishing-analyzer",
+      "name": "Phishing Analyzer",
+      "tagline": "A self-hosted phishing sandbox that sees what public scanners miss.",
+      "maker": "Wahyu N",
+      "episode": 1,
+      "timestamp": 4155,
+      "links": {
+        "site": "https://phishinganalyzer-site.vercel.app/",
+        "repo": "https://github.com/netsecid/phishing-analyzer"
+      },
+      "category": "Phishing analysis",
+      "tags": [
+        "SOC tooling",
+        "Threat intel",
+        "Mobile emulation",
+        "Takedown",
+        "Self-hosted",
+        "Screenshot analysis"
+      ],
+      "builtWith": [],
+      "availability": [
+        "Open source",
+        "Self-hosted",
+        "MIT license"
+      ],
+      "summary": "Paste a URL and it opens the page as a phone would, from wherever you deploy it. It then asks an AI model for a verdict, queries ten threat-intel sources in parallel, and drafts the takedown email for you.",
+      "problem": "Modern phishing kits cloak themselves. They only render on mobile browsers, block visitors from the wrong country, and some even check the phone's language. Public scanners run from US or EU desktops and see a harmless page. Pasting a customer-targeted URL into public scanners also leaks the investigation.",
+      "features": [
+        "Headless Chromium through Playwright, emulating an iPhone 14, captures a full-page mobile screenshot",
+        "AI vision verdict (phishing, suspicious, legitimate or inconclusive) with a confidence score and the brand being impersonated. It can translate foreign-language lures too",
+        "Ten optional intel sources queried in parallel: URLScan, VirusTotal, Shodan, Censys, Google Safe Browsing, OTX, AbuseIPDB, crt.sh, URLhaus and PhishTank",
+        "Deploy it in any region, such as a VPS in the target country or the EU for GDPR, to choose where the scan comes from",
+        "Hunting and pivot hints: other domains on the same IP, lookalike domains and TLS certificate details",
+        "RDAP-based takedown report with registrar and hosting abuse contacts filled in, plus a one-click Google Safe Browsing report",
+        "Searchable case history for the whole team, with dark and light modes"
+      ],
+      "howItWasBuilt": "It was built to fix a specific problem at work: phishing aimed at users in another country that only opened with a local IP and a local-language phone. It runs on one Ubuntu VPS behind a simple password, and the AI provider can be switched to Anthropic, AWS Bedrock, OpenAI, OpenRouter or any OpenAI-compatible model such as DeepSeek. The demo didn't say which coding agent was used to build it.",
+      "stack": [
+        "Python 3.12",
+        "FastAPI",
+        "Playwright",
+        "SQLite",
+        "Ubuntu VPS"
+      ],
+      "privacy": "Scans come from your own infrastructure, so nothing appears in public scan feeds. Third-party intel lookups are optional if you don't want your URLs shared.",
+      "lessons": [
+        "Build the tool for the gap you actually have. Here that was geo-fenced, mobile-only phishing that public sandboxes can't see.",
+        "Adding an API is almost free with vibe coding, and it's the path into SOAR or Jira automation so analysts never need to open the UI."
+      ],
+      "roadmap": [
+        "API for SOAR and Jira Automation",
+        "Video capture of scripted interaction",
+        "Amazon Linux support",
+        "Automated takedown"
+      ]
+    },
+    {
+      "id": "fishymeter",
+      "name": "Fishymeter",
+      "tagline": "Everything's fishy. Score any post, article, image or PDF for credibility before you trust it.",
+      "maker": "Resa",
+      "episode": 1,
+      "timestamp": 5518,
+      "links": {
+        "site": "https://fishymeter.ai/"
+      },
+      "category": "Content credibility",
+      "tags": [
+        "Misinformation",
+        "AI content evaluation",
+        "LLM-as-judge",
+        "Serverless",
+        "Spec-driven development",
+        "Writing QC"
+      ],
+      "builtWith": [
+        "Kiro",
+        "Spec-driven development",
+        "Amazon Bedrock",
+        "Qwen 3"
+      ],
+      "availability": [
+        "Live",
+        "Free to use",
+        "Closed source (for now)"
+      ],
+      "summary": "A credibility meter for the confident, unsourced, AI-written posts all over LinkedIn and Instagram. It scores content on six dimensions it can judge from the content alone, and you can use it to check your own writing before you post.",
+      "problem": "People who aren't technical tend to take a polished infographic at face value. Real fact-checking needs either a model that knows more than the author (correctness) or cited sources to compare against (faithfulness), and most posts offer neither. Fishymeter checks whether a piece is worth your time rather than whether it's true.",
+      "features": [
+        "Six self-contained scoring dimensions: accuracy (does it stay on topic), internal consistency, source attribution, bias, originality and transparency (who wrote it, and was AI disclosed)",
+        "Bias and originality are weighted lower, because an AWS employee praising AWS is expected when they say so openly",
+        "Grades from Rare Catch and Fresh Catch down to Rotten Fish and Dead Fish",
+        "Accepts pasted text (up to 2,000 words), a URL, or a PNG, JPEG or PDF (up to 5 MB)",
+        "Your catches are private by default. Publish one to share its analysis, or browse the week's top-scored public catches",
+        "Sign in with email or Google, up to 100 analyses a day"
+      ],
+      "howItWasBuilt": "A weekend project built spec-first in Kiro: requirements, then design, then a task list, with every commit tied to a task so the next weekend starts exactly where the last one ended. Kiro runs on an EC2 instance and Resa drives it from Slack by phone, then closes the laptop and lets it work through the tasks overnight.",
+      "stack": [
+        "Node.js",
+        "API Gateway",
+        "DynamoDB",
+        "AWS Step Functions",
+        "Lambda",
+        "Bedrock AgentCore (on-demand Playwright browser)",
+        "Amazon Cognito",
+        "AWS WAF",
+        "Feature flags"
+      ],
+      "privacy": "Uploaded originals are kept for 30 days. The model ID and features live in config and feature flags, so they can be swapped without a redeploy. The whole thing runs for about $3 a month.",
+      "lessons": [
+        "Write the requirements yourself and review them 100%. Review the design around 75%, and let the agent own the tasks.",
+        "Requirements are a living document. Add them block by block, such as moving scoring to AgentCore before adding browsing.",
+        "Don't treat a vibe-coded side project like an enterprise product. Pick serverless and a cheap model, and accept an A graded as a B as long as an A never gets an F.",
+        "On a team, agree on one spec workflow and one set of skills, or everyone's commits will point at different artifacts."
+      ],
+      "roadmap": [
+        "Expose scoring as an MCP server so you can check a draft from your editor",
+        "Open-source it after a security review"
+      ]
+    }
+  ]
+}

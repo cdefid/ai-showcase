@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Showcase | Cyber Defense Indonesia</title>
+  <meta name="description" content="Vibe-coded projects from the Cyber Defense Indonesia community, demoed live in the AI Showcase webinar series. Filter by episode, category, tags and the AI tools used to build them.">
+  <meta property="og:title" content="AI Showcase | Cyber Defense Indonesia">
+  <meta property="og:description" content="Vibe-coded projects from the Cyber Defense Indonesia community, demoed live in the AI Showcase webinar series.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#16213e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip" href="#projects">Skip to projects</a>
+
+  <header class="masthead">
+    <div class="wrap">
+      <p class="org">Cyber Defense Indonesia</p>
+      <h1>AI Showcase</h1>
+      <p class="lede" id="lede"></p>
+    </div>
+  </header>
+
+  <main>
+    <section class="episode" aria-labelledby="episode-title">
+      <div class="wrap">
+        <nav class="episode-tabs" id="episode-tabs" aria-label="Episodes"></nav>
+        <div id="episode"></div>
+      </div>
+    </section>
+
+    <section class="catalog" id="projects" aria-labelledby="projects-title">
+      <div class="wrap catalog-grid">
+        <aside class="rail" aria-label="Filters">
+          <button class="rail-toggle" id="rail-toggle" aria-expanded="false" aria-controls="filters">Filters <span id="active-count"></span></button>
+          <form id="filters" class="filters" role="search" onsubmit="return false">
+            <label class="search">
+              <span>Search</span>
+              <input type="search" id="q" placeholder="Name, maker or topic" autocomplete="off">
+            </label>
+            <div id="facets"></div>
+            <button type="button" class="clear" id="clear">Clear filters</button>
+          </form>
+        </aside>
+
+        <div class="results">
+          <div class="results-head">
+            <h2 id="projects-title">Projects</h2>
+            <p id="count" aria-live="polite"></p>
+          </div>
+          <ol class="project-list" id="list"></ol>
+          <div class="empty" id="empty" hidden>
+            <p>No projects match these filters.</p>
+            <button type="button" id="empty-clear">Clear filters</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>Want to show what you built? Tell the admins on the Cyber Defense Indonesia Discord and we'll book you into the next episode.</p>
+      <p class="fine">Project write-ups are our own summaries of each demo and site. Makers own their projects. Spotted a mistake? Open an issue or pull request.</p>
+    </div>
+  </footer>
+
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
