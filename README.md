@@ -73,3 +73,7 @@ The filters (episode, category, tags, built with, availability) are generated fr
 ## Sharing filtered views
 
 Filters are saved in the URL. For example, `?category=OSINT` or `?tool=Claude%20Code&avail=Open%20source`. Add `#project-id` to open a specific project.
+
+## Contributing
+
+Want to show your project, fix a detail, or improve the site? See [CONTRIBUTING.md](CONTRIBUTING.md).
