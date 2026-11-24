@@ -59,7 +59,8 @@ Everything lives in `data/showcase.json`. For Episode 2:
    | `episode` | yes | Episode number |
    | `timestamp` | no | Seconds into the recording where the demo starts ("Demo at…" link) |
    | `links.site`, `links.repo` | no | |
-   | `category` | yes | One per project. Each category gets its own colour. |
+   | `links.extra` | no | More links, e.g. `[{ "label": "Read the write-up", "url": "https://…" }]` |
+   | `category` | yes | One per project. Each category gets its own colour (8 colours, then they repeat). |
    | `tags` | yes | Free-form topics, shown as filter chips |
    | `builtWith` | no | AI tools, models and workflows used to build it |
    | `availability` | no | e.g. `Live`, `Open source`, `Self-hosted`, `Free to use` |

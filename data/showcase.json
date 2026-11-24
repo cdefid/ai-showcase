@@ -8,10 +8,10 @@
     {
       "number": 1,
       "title": "Vibe coding show & tell",
-      "date": "2026-09",
+      "date": "2026-09-22",
       "language": "Bahasa Indonesia",
       "youtubeId": "OM9CeIHhq3I",
-      "durationSeconds": 9130,
+      "durationSeconds": 9120,
       "hosts": [
         "Wahyu N",
         "Rizal"
@@ -57,6 +57,59 @@
         "A weekend project doesn't need enterprise architecture. Choose serverless and cheap models and accept an A graded as a B.",
         "Learn the fundamentals. You can't review what the AI wrote if you don't understand the infrastructure it chose."
       ]
+    },
+    {
+      "number": 2,
+      "title": "Scam simulators, Indonesian threat intel and supply-chain hunting",
+      "date": "2026-11-20",
+      "language": "Bahasa Indonesia",
+      "youtubeId": "IUtB4xhQ-UE",
+      "durationSeconds": 7896,
+      "hosts": [
+        "Wahyu N"
+      ],
+      "summary": "Three presenters, four tools. A URL scanner and threat-intel hub tuned for the Indonesian internet, a scam simulator that trains your instincts instead of asking you to memorise every trick, a 10-minute account-hardening guide built in a weekend after a wave of hacked creator accounts, and an autonomous monitor that watches GitHub, npm, PyPI and RubyGems for malicious packages. The episode closes with a real fake-job lure: a Go take-home project with a stealer hidden in its Git hooks.",
+      "chapters": [
+        {
+          "start": 0,
+          "label": "Opening"
+        },
+        {
+          "start": 101,
+          "label": "InsightURL",
+          "project": "insighturl"
+        },
+        {
+          "start": 2096,
+          "label": "ntardulu",
+          "project": "ntardulu"
+        },
+        {
+          "start": 3219,
+          "label": "MainAman",
+          "project": "mainaman"
+        },
+        {
+          "start": 4920,
+          "label": "PakMon Intel",
+          "project": "pakmon-intel"
+        },
+        {
+          "start": 7037,
+          "label": "Case study: the fake job with a poisoned Git hook"
+        }
+      ],
+      "takeaways": [
+        "Validate the idea before writing code. Cross-check it with several chat models and ask them to score feasibility, whether the problem is real, and whether you're the right person to solve it.",
+        "AI drifts into yes-man mode over long sessions. Tell it plainly not to affirm your ideas, and stay critical yourself.",
+        "Ship an MVP to a few trusted people, then launch. You won't get it perfect on day one, and endless polishing is its own failure mode.",
+        "Check AI-generated names and logos before you launch. One project's AI-made logo turned out to match an existing trademark.",
+        "For content that goes stale, schedule an agent to compare your pages against trusted sources and send you the gaps, with a human approving each change.",
+        "Write a spec before you let the agent code. A clear spec saves tokens and rework.",
+        "When AI writes the code, spend the time you save on securing it: test locally, ask the agent to hunt for OWASP-style bugs, and scan before each big deploy.",
+        "Coding agents install packages too. Gate installs with a hook that checks OSV for known malicious packages.",
+        "Never run a recruiter's take-home project on your own laptop. Open it in a sandbox and read .git/hooks first."
+      ]
     }
   ],
   "projects": [
@@ -77,7 +130,8 @@
         "Screenshot analysis",
         "PWA",
         "Privacy-first",
-        "For non-technical users"
+        "For non-technical users",
+        "Indonesia-focused"
       ],
       "builtWith": [
         "Claude Code",
@@ -302,6 +356,246 @@
       "roadmap": [
         "Expose scoring as an MCP server so you can check a draft from your editor",
         "Open-source it after a security review"
+      ]
+    },
+    {
+      "id": "insighturl",
+      "name": "InsightURL",
+      "tagline": "A URL scanner and threat-intel hub built for the Indonesian internet.",
+      "maker": "Riyan (sudo3rs)",
+      "episode": 2,
+      "timestamp": 260,
+      "links": {
+        "site": "https://security-life.org/insighturl/"
+      },
+      "category": "Threat intelligence",
+      "tags": [
+        "URL scanning",
+        "Threat intel",
+        "Scam detection",
+        "Brand monitoring",
+        "SOC tooling",
+        "Indonesia-focused"
+      ],
+      "builtWith": [
+        "Claude Code",
+        "Claude Opus",
+        "Claude Fable",
+        "ChatGPT",
+        "Obsidian"
+      ],
+      "availability": [
+        "Live",
+        "Free to use"
+      ],
+      "summary": "It started as a personal urlscan.io clone and grew into a toolkit for anyone defending Indonesian users and brands: scan a link without opening it, check whether a lender is licensed, see who is impersonating a brand, and follow the threats aimed at Indonesia.",
+      "problem": "Global scanners and paid threat-intel platforms rarely go deep on Indonesia. They won't tell you whether a site is registered as a PSE with Komdigi, whether a pinjol is on the OJK list, or which local brands are being impersonated this week.",
+      "features": [
+        "URL scan with screenshot, certificate, headers, DNS, redirects and phishing signals, plus an A–F hygiene grade with a plain explanation of what it means",
+        "Brand directory and impostor watch for Indonesian brands, with email alerts (instant or daily) when lookalike domains or impersonation appear",
+        "Komdigi PSE registration check and an OJK pinjol directory check",
+        "Email header analyzer that runs in the browser, plus checks for phone numbers, bank accounts and whole SMS or WhatsApp messages",
+        "AI key exposure check that spots provider API keys shipped to visitors in front-end code",
+        "Advanced scan with a downloadable HAR file, JavaScript endpoints, credential-pattern matching and a favicon hash ready to paste into Shodan",
+        "Threat feeds and reports, ransomware watch for Indonesian victims, a scam feed from Mastodon and Bluesky, QRIS checks, and gambling SEO-injection recon",
+        "Recon tools: subdomains from certificate logs, lookalike domains, email and DNS posture, and domain footprint"
+      ],
+      "howItWasBuilt": "Riyan plans with ChatGPT and writes the code with Claude Code on Opus and Fable. An Obsidian vault works as the agent's second brain, recording what each version already contains. New features ship as versioned zip patches that are extracted onto shared PHP hosting. Everything is tested locally first, including asking the agent to hunt for OWASP Top 10 bugs and PHP-specific issues, and a small built-in SIEM watches for people probing the site.",
+      "stack": [
+        "PHP",
+        "Shared hosting",
+        "Two databases (users and intel)",
+        "Daily cron jobs",
+        "Public threat feeds"
+      ],
+      "privacy": "Scans are fetched by the server, not your device, and private address ranges are refused. Deeper checks only run on domains you prove you control. Reports expire, temporary email addresses are blocked at sign-up, and the email header analyzer never leaves your browser.",
+      "lessons": [
+        "Vibe coding made learning addictive: research papers that used to be out of reach become tools you can actually build and share.",
+        "Build from what you've learned and researched, not from a one-line wish. The quality of the tool follows the depth of the research.",
+        "Some data sources, such as the OJK directory, are still too heavy to refresh automatically, so expect a few manual chores."
+      ],
+      "roadmap": [
+        "One-click Shodan links from the favicon hash",
+        "More accurate brand-risk scoring",
+        "Moving off shared hosting to a VPS"
+      ]
+    },
+    {
+      "id": "ntardulu",
+      "name": "ntardulu",
+      "tagline": "Realistic scam simulations that train you to say \"wait a minute\" before you click.",
+      "maker": "Marcel",
+      "episode": 2,
+      "timestamp": 2632,
+      "links": {
+        "site": "https://www.ntardulu.com/"
+      },
+      "category": "Security awareness",
+      "tags": [
+        "Scam simulation",
+        "Security awareness",
+        "Scam detection",
+        "For non-technical users",
+        "No sign-up",
+        "Indonesia-focused"
+      ],
+      "builtWith": [
+        "Claude Code",
+        "Claude Opus",
+        "Codex",
+        "ChatGPT",
+        "Gemini",
+        "Google CodeMender"
+      ],
+      "availability": [
+        "Live",
+        "Free to use"
+      ],
+      "summary": "A free, no-login scam simulator in Indonesian. You play through a fake WhatsApp chat, SMS, call or search result that looks just like the real thing, make a choice, and then see the red flags you missed and the safe way to check.",
+      "problem": "After years of awareness content, Marcel noticed a side effect: some people, including Marcel's own mother, became too scared to use mobile banking at all. Memorising every scam script doesn't scale either, because scammers keep the same moves and change the story. What does work is the instinct security people have, and simulations can train that.",
+      "features": [
+        "Over 30 scam simulations drawn from Indonesian cases, across WhatsApp, SMS, calls, email, Instagram, QRIS and Google results",
+        "Full-screen, phone-style scenes designed for mobile so they feel like the real thing",
+        "Every scenario offers the scammer's path and safer choices, such as closing the chat and opening the real banking app",
+        "Credentials are auto-filled in the fake forms, so nobody types a real PIN by accident",
+        "A debrief after each run that maps the message back to four hooks: urgency, bait, impersonation and a request for something (OTP, card, data)",
+        "Simulations of newer tricks, such as fake bank call centres planted through SEO poisoning and a blue tick that is no longer proof"
+      ],
+      "howItWasBuilt": "The code is 100% AI-generated with Claude Code on Opus, after a short trial of Codex. The idea took four to five months of brainstorming across ChatGPT, Claude and Gemini, with each one asked to score the idea on feasibility, whether it's a real problem for Indonesians, and whether Marcel was the right person to build it. Early versions went to friends and relatives chosen to cover different age groups before the public launch.",
+      "stack": [
+        "Static website",
+        "WAF in front",
+        "Anonymous usage tracking",
+        "Google CodeMender security scans"
+      ],
+      "privacy": "No sign-up and no personal data. Only anonymous usage is tracked, to learn which scenarios fool people most.",
+      "lessons": [
+        "Your first public product won't be perfect. At one point Claude itself pointed out that the scores had been 9-plus for months and asked what was really stopping the launch.",
+        "Feedback on design is contradictory. Ship, then iterate on the comments that make sense.",
+        "Expect harsh comments when you launch in public, and ask calmly what's behind them before acting."
+      ],
+      "roadmap": [
+        "Detect, respond and recover tools to follow the protect stage",
+        "A game-like version that teaches digital safety to children and teenagers"
+      ]
+    },
+    {
+      "id": "mainaman",
+      "name": "MainAman",
+      "tagline": "Ten minutes of guided steps to lock down the phone, email and apps you actually use.",
+      "maker": "Marcel",
+      "episode": 2,
+      "timestamp": 3219,
+      "links": {
+        "site": "https://mainaman.id/"
+      },
+      "category": "Security awareness",
+      "tags": [
+        "Account security",
+        "Security awareness",
+        "For non-technical users",
+        "No sign-up",
+        "Indonesia-focused"
+      ],
+      "builtWith": [
+        "Claude Code",
+        "Claude Opus",
+        "Hermes Agent"
+      ],
+      "availability": [
+        "Live",
+        "Free to use"
+      ],
+      "summary": "Pick your devices, email, browser and apps, and MainAman gives you the five most important protections first, each with a simulated walkthrough and a link to the official guide. A separate SOS section helps people whose account has already been hacked.",
+      "problem": "People constantly asked Marcel how to turn on two-factor authentication on Instagram or set a WhatsApp PIN. Then a wave of hacked creator and public-figure accounts was used to sell fake gold and iPhones, and followers lost money. The fix was already in official help pages, but nobody could find or follow it.",
+      "features": [
+        "Choose from 18 platforms, including Android, iOS, Gmail, Outlook, Chrome, Windows, macOS, WhatsApp, Instagram, TikTok, X and YouTube",
+        "Five quick wins picked for you first, so the list doesn't overwhelm",
+        "Step-by-step simulated screens showing exactly where each setting lives, with a link to the official guide",
+        "A track for creators and social media admins",
+        "An SOS section with official recovery paths when an account has already been hacked"
+      ],
+      "howItWasBuilt": "The beta was built over a weekend in two to three days with AI coding tools, reusing the simulation idea from ntardulu. It launched quickly after an e-commerce account with a big following offered to help spread it. A Hermes agent checks trusted sources every three days and messages Marcel on WhatsApp when a link or step has changed, and Marcel approves each update before it goes live.",
+      "stack": [
+        "Static website",
+        "Hermes Agent for content checks"
+      ],
+      "privacy": "No sign-up and no personal data stored.",
+      "lessons": [
+        "The hard part of a guide isn't the code but keeping the content current across dozens of platforms. Automate the checking, and keep a human in the loop for changes.",
+        "Check AI-generated branding. The first name and AI-made logo, amanin.now, turned out to match a registered brand, so it was renamed to MainAman.",
+        "Speed matters when there's an active wave of attacks. A good-enough guide that ships this weekend helps more people than a perfect one next month."
+      ],
+      "roadmap": [
+        "Ways to keep people motivated to finish every recommendation"
+      ]
+    },
+    {
+      "id": "pakmon-intel",
+      "name": "PakMon Intel",
+      "tagline": "An autonomous watchtower for malicious packages on GitHub, npm, PyPI and RubyGems.",
+      "maker": "Rei (KanakSasak)",
+      "episode": 2,
+      "timestamp": 5211,
+      "links": {
+        "extra": [
+          {
+            "label": "Read the Git-hook campaign write-up",
+            "url": "https://kanaksasak.github.io/research/git-hook-campaign/"
+          },
+          {
+            "label": "log4Go supply-chain simulation",
+            "url": "https://github.com/KanakSasak/log4Go"
+          }
+        ]
+      },
+      "category": "Supply chain security",
+      "tags": [
+        "Supply chain",
+        "Malware analysis",
+        "Threat intel",
+        "LLM-as-judge",
+        "SBOM"
+      ],
+      "builtWith": [
+        "Codex",
+        "ChatGPT",
+        "DeepSeek",
+        "Spec-driven development"
+      ],
+      "availability": [
+        "Not released yet"
+      ],
+      "summary": "PakMon (package monitoring) Intel is like a SIEM for the software supply chain. It listens to every push and release across four ecosystems, triages each change, and sends anything suspicious to an LLM for deep code analysis. You review the alert, then report the package to get it taken down.",
+      "problem": "A compromised library usually isn't noticed until after people have installed it, and auto-updates pull the poisoned version onto developer laptops, where stealers do their damage. Few researchers talk openly about where supply-chain telemetry comes from or how to analyse it.",
+      "features": [
+        "Listens to change events from GitHub, npm, PyPI and RubyGems, using free endpoints within their rate limits",
+        "Two triage modes: deterministic local rules (such as curl or wget piped into a shell, scheduled-task persistence, PowerShell with execution-policy bypass) or a hosted AI classifier that scores each change",
+        "Changes above the threshold go to DeepSeek for deep analysis, then back through the classifier for a verdict: malicious, suspicious or benign",
+        "About 16,000 packages analysed so far, with findings grouped as remote execution, obfuscation and credential theft",
+        "Live activity view of what is being pulled and scanned",
+        "SBOM mode in development, to monitor only the dependencies your product uses (or a manual list) and cut costs",
+        "Report helper for GitHub and the OpenSSF malicious-packages and OSV databases. One finding has already been taken down from PyPI"
+      ],
+      "howItWasBuilt": "Written in Go. Brainstorming happened in ChatGPT with an instruction to skip all affirmation and just give an honest opinion. Because Rei comes from software engineering, the brainstorm's output was already a spec, and Codex built the project from that spec. Claude was too expensive for this.",
+      "stack": [
+        "Go",
+        "Regex triage rules",
+        "Hosted AI classifier",
+        "DeepSeek"
+      ],
+      "privacy": "Watches public package registries only. Every alert is reviewed by a human before anything is reported.",
+      "lessons": [
+        "Generate a tidy spec first (goals, framework, constraints) and then hand it to the coding agent. It saves tokens.",
+        "With AI writing the code, a developer's time shifts to securing it, which is a whole new body of knowledge to learn.",
+        "Developers' own laptops are the soft target now, through dependencies, coding agents installing packages, and fake take-home tests. One defence is a hook that checks every library an agent wants to install against OSV first.",
+        "The classifier is a proof of concept that rule-based triage can give way to classification. Its verdicts are being collected to train a cheaper in-house model."
+      ],
+      "roadmap": [
+        "Public release for education",
+        "Finish SBOM monitoring",
+        "Train an in-house ML classifier to replace the paid one",
+        "Feed in known-malicious sample repos to test detection"
       ]
     }
   ]

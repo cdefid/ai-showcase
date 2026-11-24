@@ -16,6 +16,8 @@
   --seg-ink: #ffffff;
   --cat-5: #7a4fd6;
   --cat-6: #3d8b2f;
+  --cat-7: #c2410c;
+  --cat-8: #0e7490;
 
   --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
   --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -43,6 +45,8 @@
     --cat-4: #f2bd3d;
     --cat-5: #a98bf0;
     --cat-6: #72c05f;
+    --cat-7: #fb8a4c;
+    --cat-8: #4cc3dc;
     --seg-ink: #0e1525;
     color-scheme: dark;
   }
@@ -63,6 +67,8 @@
   --cat-4: #f2bd3d;
   --cat-5: #a98bf0;
   --cat-6: #72c05f;
+  --cat-7: #fb8a4c;
+  --cat-8: #4cc3dc;
   --seg-ink: #0e1525;
   color-scheme: dark;
 }

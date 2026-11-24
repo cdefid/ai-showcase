@@ -215,6 +215,7 @@
         <button type="button" class="more" data-toggle="${esc(p.id)}" aria-expanded="${open}" aria-controls="d-${esc(p.id)}">${open ? "Hide details" : "Show details"}</button>
         ${L.site ? `<a href="${esc(L.site)}" target="_blank" rel="noopener">Open the site</a>` : ""}
         ${L.repo ? `<a href="${esc(L.repo)}" target="_blank" rel="noopener">Source code</a>` : ""}
+        ${(L.extra || []).map((x) => `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.label)}</a>`).join("")}
       </div>
       <div class="details" id="d-${esc(p.id)}" ${open ? "" : "hidden"}>
         ${sec("What it is", `<p>${esc(p.summary)}</p>`)}
@@ -338,7 +339,7 @@
     .then((json) => {
       data = json;
       $("#lede").textContent = data.community.description;
-      [...new Set(data.projects.map((p) => p.category))].forEach((c, i) => (catColor[c] = `var(--cat-${(i % 6) + 1})`));
+      [...new Set(data.projects.map((p) => p.category))].forEach((c, i) => (catColor[c] = `var(--cat-${(i % 8) + 1})`));
       readURL();
       $("#q").value = state.q;
       renderEpisodeTabs();
