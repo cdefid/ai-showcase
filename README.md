@@ -31,7 +31,7 @@ Everything lives in `data/showcase.json`. For Episode 2:
    ```json
    {
      "number": 2,
-     "title": "Short episode title",
+     "title": "CDEF Vibe Coding Showcase #2",
      "date": "2026-10-15",
      "language": "Bahasa Indonesia",
      "youtubeId": "VIDEO_ID",
@@ -46,6 +46,7 @@ Everything lives in `data/showcase.json`. For Episode 2:
    }
    ```
 
+   - `title` is shown on its own as the episode heading, so include the episode number (we use the YouTube title).
    - `date` can be `YYYY-MM` or `YYYY-MM-DD`.
    - `chapters` build the run-sheet timeline. A chapter that has a `project` id is coloured by that project's category, and one without is shown in grey.
    - `youtubeId` is the `v=` part of the YouTube URL. Chapter `start` values are in seconds.
