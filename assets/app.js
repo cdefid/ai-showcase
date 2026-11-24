@@ -87,7 +87,7 @@
     $("#episode").innerHTML = `
       <div class="ep-head">
         <div>
-          <h2 id="episode-title">Episode ${ep.number}: ${esc(ep.title)}</h2>
+          <h2 id="episode-title">${esc(ep.title)}</h2>
           <p class="ep-meta">${esc(meta)}</p>
         </div>
         <a class="btn" href="${ytLink(ep.youtubeId)}" target="_blank" rel="noopener">${playIcon}Watch the recording</a>
